@@ -39,14 +39,18 @@ def krx_foriegn_hoding(p_tdate):
 
 	#Make excel file
 	df = pd.read_excel(BytesIO(r.content))
+	
+	#Add date in col
 	df['거래일자'] = tdate
 
+	#Store file in designated directory
 	file_dir = '//home//minwoo//Stock//'
 	file_name = 'KRX_foriegn_hoding_' + str(tdate) +'.xlsx'
 
 	df.to_excel(file_dir + file_name,index=False, index_label=None)
 
-	print('외국인 보유량 크롤링 완료', tdate)
+	print('외국인 보유량 크롤링 완료 ', tdate)
+	
 	return
 
 
@@ -55,6 +59,8 @@ if __name__ == '__main__':
 	for year in range(2018, 2019):
 		for month in range(1, 13):
 			for day in range(1, 32):
+				
 				tdate = year * 10000 + month * 100 + day * 1 #YYYYMMDD
+				
 				if tdate <= 20200206:
 					krx_foriegn_hoding(tdate)
